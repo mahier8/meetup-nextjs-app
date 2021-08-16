@@ -34,7 +34,7 @@ function HomePage(props) {
   //   }, []);
 
   // ***********************
-  // basically becasue of getStaticProps() we no longer
+  // basically because of getStaticProps() we no longer
   // need the two hooks
   // ***********************
 
@@ -42,16 +42,31 @@ function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+
+//   // allows you to fetch data from an API (on the server)
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
+
 // static generation (data fetching for pre rendering)
 // only works in your page files, not component files
 export async function getStaticProps() {
   // here you can fetch data from an API for example
-  // after you fecth data using getStaticProps() you
+  // after you fetch data using getStaticProps() you
   // have to return an object, usually called props
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    // Incremental Static Generation - when data changes
+    revalidate: 1,
+    // revalidate, done in seconds
   };
 }
 
